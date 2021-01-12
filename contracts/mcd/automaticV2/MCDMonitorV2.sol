@@ -117,19 +117,6 @@ contract MCDMonitorV2 is DSMath, AdminAuth, GasBurner, StaticV2 {
         logger.Log(address(this), owner, "AutomaticMCDBoost", abi.encode(ratioBefore, ratioAfter));
     }
 
-    /// @dev One time function used to remove and give new permission
-    function monitorProxyUpdate(address[] memory _proxies) public onlyApproved burnGas(30) {
-        for(uint i = 0; i < _proxies.length; ++i) {
-            monitorProxyContract.callExecute(
-            _proxies[i],
-            PROXY_PERMISSION_ADDR,
-            abi.encodeWithSignature(
-                "givePermission(address)",
-                NEW_MONITOR_PROXY_ADDR
-            ));
-        }
-    }
-
 /******************* INTERNAL METHODS ********************************/
     function returnEth() internal {
         // return if some eth left
